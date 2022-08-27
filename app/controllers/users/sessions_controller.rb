@@ -17,8 +17,8 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     ActionCable.server.remote_connections.where(current_user: current_user).disconnect
     current_user.update(status: User.statuses[:offline])
+    super
   end
-
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
