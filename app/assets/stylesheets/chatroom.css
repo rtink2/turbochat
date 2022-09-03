@@ -128,3 +128,60 @@
   color: whitesmoke;
   text-decoration: underline rgb(2, 106, 113);
 }
+
+.msg-role-user {
+  color:#bdb76b;
+}
+
+.msg-role-user:hover {
+  color: #daa520;
+  text-decoration: none;
+}
+
+.msg-role-admin {
+  color:rgba(235, 255, 15, 0.8);
+}
+
+.msg-role-admin:hover {
+  color: #daa520;
+  text-decoration: none;
+}
+
+
+/* Animate in a messsage error absolute pos */
+.message-error {
+  position: absolute;
+  top: 56;
+  right: 0;
+  width: 100%;
+  height: 3em;
+  background-color: #d1a4a8;
+  z-index: 5;
+
+  animation: fade 5s forwards;
+  -webkit-animation: fade 5s fowards;
+  -moz-animation: fade 5s fowards;
+  -o-animation: fade 5s fowards;
+  -ms-animation: fade 5s fowards;
+}
+
+.message-error-text {
+  color: #b42424;
+  text-align: center;
+  padding-top: 0.5em;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -4,10 +4,13 @@ class Message < ApplicationRecord
   before_create :confirm_participant
   has_many_attached :attachments, dependent: :destroy
 
+  validate :validate_attachement_filetypes
+
   after_create_commit do
     notify_recipients
     update_parent_room
     broadcast_append_later_to room
+    broadcast_to_home_page
   end
 
   def chat_attachment(index)
@@ -34,6 +37,16 @@ class Message < ApplicationRecord
 
   private
 
+  def validate_attachement_filetypes
+    return unless attachments.attached?
+
+    attachments.each do |attachment|
+      unless attachment.content_type.in?(%w[image/jpeg image/png image/gif video/mp4 video/mpeg audio/x-wav audio/mp3])
+        errors.add(:attachments, 'must be JPEG, PNG, GIF, MP4, MPEG, WAV or MP3 file')
+      end
+    end
+  end
+
   def  notify_recipients
     users_in_room = room.joined_users
     users_in_room.each do |user|
@@ -42,6 +55,17 @@ class Message < ApplicationRecord
       notification = MessageNotification.with(message: self, room:)
       notification.deliver_later(user)
     end
+  end
+
+  def broadcast_to_home_page
+    broadcast_prepend_later_to 'public_messages',
+      target: 'public_messages',
+      partial: 'messages/message_preview',
+      locals: { message: self }
+    message_to_remove = Message.where(room: Room.public_rooms).order(created_at: :desc).fifth
+
+    broadcast_remove_to 'public_messages',
+                        target: message_to_remove
   end
 
 end

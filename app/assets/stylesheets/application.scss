@@ -3,7 +3,26 @@
 
  body {
   height: calc(100vh - 56px);
+  background: #ADA996;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
+
+.card{
+  border-radius: 4px;
+  background: #d5d1d1;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  padding: 14px 80px 18px 36px;
+  cursor: pointer;
+}
+
+.card:hover{
+   transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
 .msg-form {
   width: 100%;
   height: 56px;
@@ -53,20 +72,25 @@
 .username {
   overflow: hidden;
 }
+
 .chat_pfp {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }
+
 .user_list_item {
   height: auto;
   background-color: #343a40 !important;
+  border: .5px solid rgb(81, 80, 80);
 }
+
 .room_list_item {
   height: auto;
   background-color: #343a40 !important;
   color: salmon;
+  border: .5px solid rgb(81, 80, 80);
 }
 .name {
   margin-top: 15px;
@@ -78,6 +102,7 @@
   margin-top: 0px;
   padding-bottom: 0px;
   margin-bottom: 0px;
+  color: #ffa07a;
 }
 .icon-container {
   width: 50px;
@@ -121,4 +146,23 @@
 }
 .new-room-button {
   border-radius: 5px !important;
+}
+
+#message-preview-card {
+  background: #3c3c3c;
+  border-radius: 5px;
+}
+
+#message-preview {
+  animation: fadeIn 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

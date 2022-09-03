@@ -1,11 +1,29 @@
-<h1>TurboChat</h1>
-
-<% if current_user %>
-  <%= link_to "Start Chatting", rooms_path %>
-  <%= image_tag(current_user.avatar_thumbnail) %>
-  <%= button_to "Logout", destroy_user_session_path, method: :delete, form: { data: { turbo_method: :false } } %>
-  <%= link_to "Edit Account", edit_user_registration_path, class:'btn btn-secondary'%>
-<% else %>
-  <%= link_to "Login", new_user_session_path %>
-  <%= link_to "Sign Up", new_user_registration_path %>
-<% end %>
+<div class="row" style="margin: 0px; padding: 0px">
+  <div class="col-8" style="padding: 0px;">
+    <div class="card p-5">
+      <%# <h3>Welcome to ChatterBox!</h3> %>
+      <%= image_tag("logo.jpeg") %>
+      <p>This is a simple chat application built with Ruby On Rails 7. Feel free to make an account & have a look around!!</p>
+      <% if current_user %>
+        <div class="btn-group" role="group">
+          <%= link_to "Start Chatting", rooms_path, class:'badge text-bg-info' %>
+          <%= link_to "Edit Account", edit_user_registration_path, class:'badge text-bg-secondary'%>
+           <%= button_to "Logout", destroy_user_session_path, 
+              method: :delete, class: 'badge text-bg-danger',
+              form: { data: { turbo_method: :false } } %>
+        </div>
+      <% else %>
+        <div class="btn-group" role="group">
+          <%= link_to "Login", new_user_session_path, class: "badge text-bg-warning" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "badge text-bg-dark" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+    <div class="col-4" id="public_messages" style="overflow: hidden; height: calc(100vh-56px); padding: 0px;">
+      <%= turbo_stream_from "public_messages" %>
+        <% @messages.each do |message| %>
+          <%= render "messages/message_preview", message: message %>
+        <% end %>
+    </div>
+</div>

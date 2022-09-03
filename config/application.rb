@@ -12,6 +12,9 @@ module Turbochat
     config.load_defaults 7.0
     config.active_storage.variant_processor = :mini_magick
 
+    config.action_view.sanitized_allowed_tags = Loofah::HTML5::SafeList::ALLOWED_ELEMENTS
+    config.action_view.sanitized_allowed_attributes = Loofah::HTML5::SafeList::ALLOWED_ATTRIBUTES
+
     # config.active_storage.replace_on_assign_to_many = false
 
     # Configuration for the application, engines, and railties goes here.
